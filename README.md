@@ -6,4 +6,4 @@ Download data [from here](https://github.com/dbt-labs/jaffle_shop/tree/main/seed
 
 
 ## Helpful resources
-[sqlfluff's resource for github actions](https://github.com/sqlfluff/sqlfluff-github-actions)
+[SQLFluff's resource for github actions](https://github.com/sqlfluff/sqlfluff-github-actions)
