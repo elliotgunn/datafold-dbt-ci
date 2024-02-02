@@ -6,6 +6,8 @@ It uses [seeds](https://docs.getdbt.com/docs/build/seeds) that includes fake raw
 
 The best way to learn how to create your first GitHub Actions workflow is to fork this repository and follow our tutorial (link to be added upon publication). 
 
+You can take a look at what's in our [super simple workflow here](https://github.com/elliotgunn/datafold-dbt-ci/blob/main/.github/workflows/dbt-pr-ci-job.yml) called ```Our first dbt PR job```
+
 By the end of the tutorial, you will have run your first workflow!
 
 ![](/img/static/github-actions-workflow.png)
