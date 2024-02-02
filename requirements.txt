@@ -1,0 +1,2 @@
+dbt-snowflake==1.6.2
+sqlfluff==0.3.6
