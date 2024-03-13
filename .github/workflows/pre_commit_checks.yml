@@ -31,7 +31,7 @@ jobs:
         run: dbt deps
 
       - name: dbt build
-        run: dbt build --select state:modified+ --defer --state ./ --exclude config.materialized:snapshot --profiles-dir ./
+        run: dbt build --full-refresh --profiles-dir ./
 
       - name: Run pre-commit checks
         run: pre-commit run --all-files 
