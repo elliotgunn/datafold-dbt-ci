@@ -61,3 +61,54 @@ jobs:
         env:
           DATAFOLD_API_KEY: ${{ secrets.DATAFOLD_API_KEY }}
           GIT_SHA: "${{ github.event.pull_request.head.sha }}"
+
+      - name: Announce success on slack
+        if: ${{ success() }}
+        run: |
+          curl ${{ secrets.SLACK_DBT_NOTIFICATION_WEBHOOK_URL }} \
+            --request POST \
+            --header 'Content-type: application/json' \
+            --data \
+              '{
+                  "blocks": [
+                    {
+                      "type": "header",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "${{ github.workflow }} completed"
+                      }
+                    },
+                    {
+                      "type": "section",
+                      "text": {
+                          "type": "mrkdwn",
+                          "text": "${{ github.workflow }} succeeded for branch `${{ github.ref }}` :white_check_mark:"
+                      }
+                    }
+                  ]
+              }'
+      - name: Announce failure on slack
+        if: ${{ failure() }}
+        run: |
+          curl ${{ secrets.SLACK_DBT_NOTIFICATION_WEBHOOK_URL }} \
+            --request POST \
+            --header 'Content-type: application/json' \
+            --data \
+              '{
+                  "blocks": [
+                    {
+                      "type": "header",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "${{ github.workflow }} completed"
+                      }
+                    },
+                    {
+                      "type": "section",
+                      "text": {
+                          "type": "mrkdwn",
+                          "text": "${{ github.workflow }} failed for branch `${{ github.ref }}` :rotating_light:\n<@U06A9AWGEKS>"
+                      }
+                    }
+                  ]
+              }'
