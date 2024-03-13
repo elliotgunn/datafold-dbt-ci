@@ -30,6 +30,9 @@ jobs:
       - name: Install dbt dependencies
         run: dbt deps
 
+      - name: Install Datafold SDK
+        run: pip install -q datafold-sdk
+
       # TODO: update for your unique S3 bucket name
       # TODO: update your GitHub secrets to include AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
       - name: Grab production manifest from S3
@@ -48,3 +51,13 @@ jobs:
           SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
           SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
           SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }} 
+
+      # TODO: comment this step out if you don't have Datafold Cloud yet
+      # TODO: replace --ci-config-id 350 with your unique Datafold CI config id
+      - name: Submit artifacts to Datafold
+        run: |
+          set -ex
+          datafold dbt upload --ci-config-id 350 --run-type pull_request --commit-sha ${GIT_SHA}
+        env:
+          DATAFOLD_API_KEY: ${{ secrets.DATAFOLD_API_KEY }}
+          GIT_SHA: "${{ github.event.pull_request.head.sha }}"
