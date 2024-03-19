@@ -29,6 +29,29 @@ By the end of the tutorial, you will have run your first workflow!
 
 ![](/img/static/github-actions-workflow.png)
 
+## An example of how CI works
+Imagine you would like to only analyze orders made in March 2018 (the full dataset, which you can see in the `orders.csv` file, contains orders between January to April 2018). 
+
+Here's what a CI workflow should look like
+
+1. We'll create a new branch to make our change in. In your terminal:
+`git checkout -b "update-fct-orders"`
+
+2. Then, update the `fct_orders.sql` file to add a filter:
+
+```orders as (
+    -- Filtering orders to March 2018
+    select * from {{ ref('stg_orders')}}
+    where order_date >= '2018-03-01' and order_date <= '2018-03-31'
+),
+```
+
+3. Commit the change to your respository and open a new PR. Here's the [open PR from this repository](https://github.com/elliotgunn/datafold-dbt-ci/pull/6).
+
+4. Wait for our [GitHub Actions workflow](https://github.com/elliotgunn/datafold-dbt-ci/actions), that was automatically triggered with the opened PR, to finish running. Success! You can now merge to main with the confidence that our modified dbt model did not break anything and our code underwent linting. 
+
+![](img/static/github-actions-workflow-test-pr.png)
+
 ## Resources
 Learn more about:
 * SQLFluff's [resource for GitHub Actions](https://github.com/sqlfluff/sqlfluff-github-actions)
