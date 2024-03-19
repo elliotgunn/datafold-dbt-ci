@@ -35,11 +35,14 @@ Imagine you would like to only analyze orders made in March 2018 (the full datas
 Here's what a CI workflow should look like
 
 1. We'll create a new branch to make our change in. In your terminal:
-`git checkout -b "update-fct-orders"`
+```
+git checkout -b "update-fct-orders"
+```
 
 2. Then, update the `fct_orders.sql` file to add a filter:
 
-```orders as (
+```
+orders as (
     -- Filtering orders to March 2018
     select * from {{ ref('stg_orders')}}
     where order_date >= '2018-03-01' and order_date <= '2018-03-31'
