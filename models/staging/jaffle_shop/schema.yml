@@ -9,6 +9,7 @@ models:
         tests:
           - unique
           - not_null
+        tags: ['primary-key']
   - name: stg_orders
     description: one order per customer
     columns:
@@ -17,6 +18,7 @@ models:
         tests: 
           - unique
           - not_null
+        tags: ['primary-key']
       - name: status
         description: '{{ doc("order_status")}}'
         tests:
