@@ -6,6 +6,7 @@ with payments as (
 orders as (
 
     select * from {{ ref('stg_orders')}}
+    where order_date >= '2018-03-01' and order_date <= '2018-03-31'
 
 ),
 
