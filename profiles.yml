@@ -11,4 +11,3 @@ jaffle_shop:
       warehouse: INTEGRATION
       schema: ELLIOT
       threads: 24
-  
